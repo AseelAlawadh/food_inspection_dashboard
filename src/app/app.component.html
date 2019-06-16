@@ -1,0 +1,41 @@
+<mat-toolbar style="position: relative;z-index: 1;">
+  <button (click)="sidemenu.toggle()" mat-icon-button>
+    <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
+  </button>
+  <button mat-button [routerLink]="'/dashboard'" routerLinkActive="active-link">
+    <span style="margin-left:4px;font-size: 16px">Food Dashboard</span>
+  </button>
+
+
+</mat-toolbar>
+
+
+<mat-sidenav-container class="app-inner">
+  <mat-sidenav #sidemenu class="app-sidenav sidenav-panel" [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()">
+    <mat-nav-list class="list-divider">
+      <mat-list-item *ngFor='let route of home_menu' [routerLink]="route.url" routerLinkActive="active-link"
+                     (click)="isOver()?sidemenu.toggle():null">
+        <mat-icon class="small-icon" matListIcon fontSet="fa" fontIcon="{{route.icon}}"></mat-icon>
+        <a>{{route.name}}</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3 matSubheader>Admin Actions</h3>
+      <mat-list-item *ngFor='let route of formsMenuSubject | async'
+                     [routerLink]="route.url" routerLinkActive="active-link"
+                     (click)="isOver()?sidemenu.toggle():null">
+        <mat-icon class="small-icon" matListIcon fontSet="fa" fontIcon="{{route.icon}}"></mat-icon>
+        <a>{{route.name}}</a>
+      </mat-list-item>
+
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+    <img
+         src="https://aseel.tech/content/images/2019/05/result.png"  width="500" height="500">
+
+  <div class="app-inner-routes" #mainRouter>
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
